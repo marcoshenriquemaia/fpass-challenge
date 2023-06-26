@@ -1,0 +1,41 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "es2017",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "incremental": true,
+    "skipLibCheck": true,
+    "strictNullChecks": false,
+    "noImplicitAny": false,
+    "strictBindCallApply": false,
+    "forceConsistentCasingInFileNames": false,
+    "noFallthroughCasesInSwitch": false,
+    "paths": {
+      "@services": [
+        "libs/services"
+      ],
+      "@services/*": [
+        "libs/services/*"
+      ],
+      "@interfaces": [
+        "libs/interfaces"
+      ],
+      "@interfaces/*": [
+        "libs/interfaces/*"
+      ],
+      "@abstracts": [
+        "libs/abstracts"
+      ],
+      "@abstracts/*": [
+        "libs/abstracts/*"
+      ]
+    }
+  }
+}

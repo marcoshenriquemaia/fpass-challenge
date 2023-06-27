@@ -34,3 +34,7 @@ Siga as etapas abaixo para executar o projeto em sua máquina:
 5. Remova possíveis containers que estejam rodando: `docker rm -f $(docker ps -aq)`.
 6. Execute o projeto: `docker compose up`.
 7. Abra o navegador e acesse `http://localhost:3000`.
+
+## Observações
+
+- Alguns dados sensíveis estão disponíveis no docker-compose.yml para facilitar a execução do projeto. Em um ambiente de produção, esses dados devem ser armazenados em variáveis de ambiente.

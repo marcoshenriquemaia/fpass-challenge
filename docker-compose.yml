@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+  apps:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - 3000:3000
+      - 3001:3001
+    environment:
+      MARVEL_PUBLIC_KEY: dab87e2ab941a5a7b668fba040ab492e
+      MARVEL_PRIVATE_KEY: 9daece9c789fc85679e76c5a1b5b4d03caf29257
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+    volumes:
+      - ./:/app
+    networks:
+      - my-network
+    command: sh -c "sleep 10 && npm run start:all"
+
+  redis:
+    image: redis:latest
+    restart: always
+    ports:
+      - 6379:6379
+    networks:
+      - my-network
+
+volumes:
+  data:
+
+
+networks:
+  my-network:

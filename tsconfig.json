@@ -35,6 +35,12 @@
       ],
       "@abstracts/*": [
         "libs/abstracts/*"
+      ],
+      "@adapters": [
+        "libs/adapters"
+      ],
+      "@adapters/*": [
+        "libs/adapters/*"
       ]
     }
   }

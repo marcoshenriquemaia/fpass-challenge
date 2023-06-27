@@ -8,6 +8,8 @@
   "scripts": {
     "build": "nest build",
     "format": "prettier --write \"apps/**/*.ts\" \"libs/**/*.ts\"",
+    "start:all": "concurrently \"npm run start:api\" ",
+    "start:api": "nest start gateway --watch",
     "start": "nest start",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
@@ -23,6 +25,10 @@
     "@nestjs/common": "^9.0.0",
     "@nestjs/core": "^9.0.0",
     "@nestjs/platform-express": "^9.0.0",
+    "@nestjs/swagger": "^7.0.6",
+    "concurrently": "^8.2.0",
+    "crypto-js": "^4.1.1",
+    "ioredis": "^5.3.2",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.2.0"
   },
@@ -30,6 +36,7 @@
     "@nestjs/cli": "^9.0.0",
     "@nestjs/schematics": "^9.0.0",
     "@nestjs/testing": "^9.0.0",
+    "@types/crypto-js": "^4.1.1",
     "@types/express": "^4.17.13",
     "@types/jest": "29.5.0",
     "@types/node": "18.15.11",
@@ -72,7 +79,8 @@
     "moduleNameMapper": {
       "^@services/services(|/.*)$": "<rootDir>/libs/services/src/$1",
       "^@interfaces/interfaces(|/.*)$": "<rootDir>/libs/interfaces/src/$1",
-      "^@abstracts/abstracts(|/.*)$": "<rootDir>/libs/abstracts/src/$1"
+      "^@abstracts/abstracts(|/.*)$": "<rootDir>/libs/abstracts/src/$1",
+      "^@adapters/adapters(|/.*)$": "<rootDir>/libs/adapters/src/$1"
     }
   }
 }

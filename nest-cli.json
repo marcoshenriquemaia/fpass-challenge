@@ -43,6 +43,15 @@
       "compilerOptions": {
         "tsConfigPath": "libs/abstracts/tsconfig.lib.json"
       }
+    },
+    "adapters": {
+      "type": "library",
+      "root": "libs/adapters",
+      "entryFile": "index",
+      "sourceRoot": "libs/adapters/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/adapters/tsconfig.lib.json"
+      }
     }
   },
   "monorepo": true,

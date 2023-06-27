@@ -16,7 +16,6 @@ import { MarvelCharacterRepository } from 'libs/repositories';
   controllers: [GatewayController, MarvelController],
   providers: [
     GatewayService,
-    MarvelService,
     {
       provide: EncryptAbstract,
       useClass: CryptoTsAdapter,
@@ -28,6 +27,10 @@ import { MarvelCharacterRepository } from 'libs/repositories';
     {
       provide: MarvelCharacterRepositoryAbstract,
       useClass: MarvelCharacterRepository,
+    },
+    {
+      provide: 'MARVEL_SERVICE',
+      useClass: MarvelService,
     },
     {
       provide: 'MARVEL_PRIVATE_KEY',

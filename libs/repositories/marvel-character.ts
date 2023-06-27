@@ -2,13 +2,14 @@ import {
   InMemoryDBAbstract,
   MarvelCharacterRepositoryAbstract,
 } from '@abstracts';
+import { Inject } from '@nestjs/common';
 import { MarvelService } from '@services';
 
 export class MarvelCharacterRepository
   implements MarvelCharacterRepositoryAbstract
 {
   constructor(
-    private readonly marvelService: MarvelService,
+    @Inject('MARVEL_SERVICE') private readonly marvelService: MarvelService,
     private readonly redisService: InMemoryDBAbstract,
   ) {}
 
@@ -44,6 +45,8 @@ export class MarvelCharacterRepository
 
   async listFavorites() {
     const keys = await this.redisService.keys('marvel:*');
+
+    if (!keys.length) return [];
 
     const data = await this.redisService.mget(keys);
 

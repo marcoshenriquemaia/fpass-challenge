@@ -52,6 +52,15 @@
       "compilerOptions": {
         "tsConfigPath": "libs/adapters/tsconfig.lib.json"
       }
+    },
+    "email-microservice": {
+      "type": "application",
+      "root": "apps/email-microservice",
+      "entryFile": "main",
+      "sourceRoot": "apps/email-microservice/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/email-microservice/tsconfig.app.json"
+      }
     }
   },
   "monorepo": true,

@@ -1,12 +1,13 @@
-import { MarvelCharacterRepositoryAbstract } from '@abstracts';
-import { Controller, Delete, Get, Param, Put } from '@nestjs/common';
-import { ApiParam, ApiTags } from '@nestjs/swagger';
+import { AMQPAbstract, MarvelCharacterRepositoryAbstract } from '@abstracts';
+import { Controller, Delete, Get, Param, Put, Query } from '@nestjs/common';
+import { ApiParam, ApiQuery, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Marvel')
 @Controller('/marvel')
 export class MarvelController {
   constructor(
     private readonly characterRepository: MarvelCharacterRepositoryAbstract,
+    private readonly AMQPPublisher: AMQPAbstract,
   ) {}
 
   @Get('/characters/name/:name')
@@ -17,8 +18,17 @@ export class MarvelController {
 
   @Put('/characters/favorite/:id')
   @ApiParam({ name: 'id', type: Number })
-  setFavorite(@Param('id') id: number) {
-    return this.characterRepository.setFavorite(id);
+  @ApiQuery({ name: 'email', type: String, description: 'Email to notify' })
+  async setFavorite(@Param('id') id: number, @Query('email') email: string) {
+    const data = await this.characterRepository.setFavorite(id);
+
+    if (email)
+      this.AMQPPublisher.sendEvent('character.favorite', {
+        email,
+        characterName: data.name,
+      });
+
+    return data;
   }
 
   @Get('/characters/favorite/:id')

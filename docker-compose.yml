@@ -14,6 +14,14 @@ services:
       MARVEL_PRIVATE_KEY: 9daece9c789fc85679e76c5a1b5b4d03caf29257
       REDIS_HOST: redis
       REDIS_PORT: 6379
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_PORT: 5672
+      RABBITMQ_USER: guest
+      RABBITMQ_PASS: guest
+      SMTP_HOST: smtp.umbler.com
+      SMTP_PORT: 587
+      SMTP_USER: fpass@cantajunto.com
+      SMTP_PASS: FPassteste123@
     volumes:
       - ./:/app
     networks:
@@ -27,6 +35,17 @@ services:
       - 6379:6379
     networks:
       - my-network
+    
+  rabbitmq:
+    container_name: rabbitmq
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - my-network  
+    volumes:
+      - /var/lib/rabbitmq
 
 volumes:
   data:

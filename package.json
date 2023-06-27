@@ -8,7 +8,8 @@
   "scripts": {
     "build": "nest build",
     "format": "prettier --write \"apps/**/*.ts\" \"libs/**/*.ts\"",
-    "start:all": "concurrently \"npm run start:api\" ",
+    "start:all": "concurrently \"npm run start:api\" \"npm run start:email\"",
+    "start:email": "nest start email-microservice --watch",
     "start:api": "nest start gateway --watch",
     "start": "nest start",
     "start:dev": "nest start --watch",
@@ -22,10 +23,15 @@
     "test:e2e": "jest --config ./apps/gateway/test/jest-e2e.json"
   },
   "dependencies": {
+    "@nestjs-modules/mailer": "^1.8.1",
     "@nestjs/common": "^9.0.0",
+    "@nestjs/config": "^3.0.0",
     "@nestjs/core": "^9.0.0",
+    "@nestjs/microservices": "^10.0.3",
     "@nestjs/platform-express": "^9.0.0",
     "@nestjs/swagger": "^7.0.6",
+    "amqp-connection-manager": "^4.1.13",
+    "amqplib": "^0.10.3",
     "concurrently": "^8.2.0",
     "crypto-js": "^4.1.1",
     "ioredis": "^5.3.2",

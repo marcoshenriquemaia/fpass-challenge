@@ -4,18 +4,39 @@ import { GatewayService } from './gateway.service';
 import { MarvelController } from './marvel/marvel.controller';
 import { MarvelService } from '@services';
 import {
+  AMQPAbstract,
   EncryptAbstract,
   InMemoryDBAbstract,
   MarvelCharacterRepositoryAbstract,
+  RedisService,
 } from '@abstracts';
-import { CryptoTsAdapter, RedisService } from '@adapters';
+import { CryptoTsAdapter, RabbitMQ } from '@adapters';
 import { MarvelCharacterRepository } from 'libs/repositories';
+import { ClientsModule, Transport } from '@nestjs/microservices';
 
 @Module({
-  imports: [],
+  imports: [
+    ClientsModule.register([
+      {
+        name: 'RABBITMQ',
+        transport: Transport.RMQ,
+        options: {
+          urls: [
+            `amqp://${process.env.RABBITMQ_USER}:${process.env.RABBITMQ_PASS}@${process.env.RABBITMQ_HOST}`,
+          ],
+          queue: 'email_queue',
+          queueOptions: { durable: true },
+        },
+      },
+    ]),
+  ],
   controllers: [GatewayController, MarvelController],
   providers: [
     GatewayService,
+    {
+      provide: AMQPAbstract,
+      useClass: RabbitMQ,
+    },
     {
       provide: EncryptAbstract,
       useClass: CryptoTsAdapter,
